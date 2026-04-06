@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>MyFinances — Мобильный банк</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f2f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Телефон-контейнер */
+        .phone {
+            width: 100%;
+            max-width: 390px;
+            height: 100vh;
+            max-height: 780px;
+            background: #ffffff;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 20px 35px -12px rgba(0,0,0,0.2);
+            border-radius: 32px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        /* Скрываем скролл, но оставляем функционал */
+        .phone::-webkit-scrollbar {
+            width: 4px;
+        }
+        .phone::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .phone::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        /* Общие отступы */
+        .container {
+            padding: 20px 16px 30px;
+        }
+
+        /* Хедер */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 24px;
+        }
+        .greeting h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a2c3e;
+        }
+        .greeting p {
+            font-size: 14px;
+            color: #6c7a8a;
+            margin-top: 4px;
+        }
+        .avatar {
+            background: #eef2ff;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 500;
+            color: #1e3a8a;
+        }
+
+        /* Карта */
+        .card-section {
+            margin-bottom: 28px;
+        }
+        .card-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b5565;
+        }
+        .card {
+            background: linear-gradient(135deg, #1f2b3c, #0f1a24);
+            border-radius: 28px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 12px 20px -10px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        .card-chip {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+        .chip {
+            background: #f5b042;
+            width: 38px;
+            height: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .chip:before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #e09d2e;
+            border-radius: 5px;
+            top: 5px;
+            left: 5px;
+        }
+        .card-network {
+            font-size: 20px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .card-number {
+            font-size: 18px;
+            letter-spacing: 2px;
+            font-family: monospace;
+            margin-bottom: 20px;
+            word-break: break-all;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .balance {
+            margin-top: 16px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .balance-text {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .toggle-balance {
+            background: rgba(255,255,255,0.25);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        /* Кнопки быстрых действий */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .action-btn {
+            flex: 1;
+            background: #f1f5f9;
+            border: none;
+            padding: 12px 0;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #1e293b;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .action-btn span:first-child {
+            font-size: 22px;
+        }
+        .action-btn:active {
+            background: #e2e8f0;
+            transform: scale(0.97);
+        }
+
+        /* Секция последних транзакций */
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .transactions-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .transactions-header a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .transaction-left {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+        .transaction-icon {
+            width: 44px;
+            height: 44px;
+            background: #eef2ff;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .transaction-info h4 {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .transaction-info p {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .positive {
+            color: #10b981;
+        }
+        .negative {
+            color: #ef4444;
+        }
+
+        /* Нижняя навигация */
+        .bottom-nav {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 16px 20px;
+            border-top: 1px solid #ecf3fa;
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #94a3b8;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .nav-item.active {
+            color: #2563eb;
+            font-weight: 500;
+        }
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        /* модалка для переводов (простая имитация) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-card {
+            background: white;
+            max-width: 320px;
+            width: 80%;
+            border-radius: 36px;
+            padding: 24px;
+            text-align: center;
+        }
+        .modal-card input {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 50px;
+            border: 1px solid #cbd5e1;
+            font-size: 16px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            z-index: 1100;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div class="phone">
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="greeting">
+                <h2>Добрый день, Алексей</h2>
+                <p>Ваш финансовый помощник</p>
+            </div>
+            <div class="avatar">
+                👤
+            </div>
+        </div>
+
+        <!-- Карта и баланс -->
+        <div class="card-section">
+            <div class="card-label">
+                <span>💳 Моя карта</span>
+                <span style="color:#2563eb;">Mastercard</span>
+            </div>
+            <div class="card">
+                <div class="card-chip">
+                    <div class="chip"></div>
+                    <div class="card-network">💳</div>
+                </div>
+                <div class="card-number">**** 4321</div>
+                <div class="card-footer">
+                    <span>VALID THRU 09/28</span>
+                    <span>ALEXEY P.</span>
+                </div>
+                <div class="balance">
+                    <div class="balance-text">Доступно</div>
+                    <div class="balance-amount" id="balanceAmount">•••••</div>
+                    <button class="toggle-balance" id="toggleBalanceBtn">👁️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Быстрые действия -->
+        <div class="actions">
+            <button class="action-btn" id="transferBtn"><span>💸</span><span>Перевод</span></button>
+            <button class="action-btn" id="paymentBtn"><span>📱</span><span>Оплатить</span></button>
+            <button class="action-btn" id="moreBtn"><span>📊</span><span>Статистика</span></button>
+        </div>
+
+        <!-- История операций -->
+        <div class="transactions-header">
+            <h3>Последние операции</h3>
+            <a href="#">Все</a>
+        </div>
+        <div id="transactionsList">
+            <!-- динамические транзакции через JS -->
+        </div>
+    </div>
+
+    <!-- Нижняя навигация -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Главная</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">💳</span>
+            <span>Карты</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Инвестиции</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>Профиль</span>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно перевода -->
+<div id="modalTransfer" class="modal">
+    <div class="modal-card">
+        <h3 style="margin-bottom: 8px;">Перевод средств</h3>
+        <input type="text" id="phoneInput" placeholder="Номер телефона или карты">
+        <input type="number" id="amountInput" placeholder="Сумма ₽">
+        <div class="modal-buttons">
+            <button id="cancelModal" style="background:#f1f5f9;">Отмена</button>
+            <button id="confirmTransfer" style="background:#2563eb; color:white;">Отправить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Состояние
+    let realBalance = 15280.50;
+    let isBalanceHidden = true;
+
+    // Транзакции
+    const transactions = [
+        { id: 1, title: "Перевод Анне С.", date: "Сегодня, 14:32", amount: -850, icon: "👤", type: "out" },
+        { id: 2, title: "Супермаркет", date: "Вчера, 19:15", amount: -1240, icon: "🛒", type: "out" },
+        { id: 3, title: "Зарплата", date: "05.04.2025", amount: 42300, icon: "💰", type: "in" },
+        { id: 4, title: "Кафе Coffeeshop", date: "04.04.2025", amount: -560, icon: "☕", type: "out" },
+        { id: 5, title: "Аптека", date: "03.04.2025", amount: -340, icon: "💊", type: "out" },
+    ];
+
+    // Элементы DOM
+    const balanceSpan = document.getElementById('balanceAmount');
+    const toggleBtn = document.getElementById('toggleBalanceBtn');
+    const transactionsContainer = document.getElementById('transactionsList');
+    const modal = document.getElementById('modalTransfer');
+    const transferBtn = document.getElementById('transferBtn');
+    const cancelModalBtn = document.getElementById('cancelModal');
+    const confirmTransferBtn = document.getElementById('confirmTransfer');
+    const phoneInput = document.getElementById('phoneInput');
+    const amountInput = document.getElementById('amountInput');
+
+    // Форматирование суммы
+    function formatAmount(amount) {
+        const absAmount = Math.abs(amount).toFixed(2);
+        return `${amount >= 0 ? '+' : '-'} ${absAmount} ₽`;
+    }
+
+    // Рендер транзакций
+    function renderTransactions() {
+        transactionsContainer.innerHTML = '';
+        transactions.slice(0, 5).forEach(tx => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'transaction-item';
+            const amountClass = tx.amount > 0 ? 'positive' : 'negative';
+            itemDiv.innerHTML = `
+                <div class="transaction-left">
+                    <div class="transaction-icon">${tx.icon}</div>
+                    <div class="transaction-info">
+                        <h4>${tx.title}</h4>
+                        <p>${tx.date}</p>
+                    </div>
+                </div>
+                <div class="transaction-amount ${amountClass}">
+                    ${formatAmount(tx.amount)}
+                </div>
+            `;
+            transactionsContainer.appendChild(itemDiv);
+        });
+    }
+
+    // Обновить отображение баланса (скрытый / видимый)
+    function updateBalanceDisplay() {
+        if (isBalanceHidden) {
+            balanceSpan.innerText = '•••••';
+        } else {
+            balanceSpan.innerText = realBalance.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₽';
+        }
+    }
+
+    // Переключение видимости баланса
+    function toggleBalanceVisibility() {
+        isBalanceHidden = !isBalanceHidden;
+        updateBalanceDisplay();
+        toggleBtn.innerText = isBalanceHidden ? '👁️' : '🔒';
+    }
+
+    // Показать всплывающее сообщение (тост)
+    function showToast(message, duration = 2000) {
+        let existingToast = document.querySelector('.toast-msg');
+        if(existingToast) existingToast.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.innerText = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), duration);
+    }
+
+    // Добавить новую транзакцию и обновить баланс
+    function addTransaction(amount, title, icon = '💸') {
+        const newTransaction = {
+            id: Date.now(),
+            title: title,
+            date: 'Только что',
+            amount: amount,
+            icon: icon,
+            type: amount > 0 ? 'in' : 'out'
+        };
+        transactions.unshift(newTransaction);
+        if(transactions.length > 20) transactions.pop();
+        renderTransactions();
+        realBalance += amount;
+        updateBalanceDisplay();
+        // если баланс скрыт, то после изменения автоматически не показываем, но данные обновляются в памяти
+    }
+
+    // Открыть модалку перевода
+    function openTransferModal() {
+        modal.style.display = 'flex';
+        phoneInput.value = '';
+        amountInput.value = '';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    // Обработка перевода
+    function handleTransfer() {
+        const phone = phoneInput.value.trim();
+        const amountRaw = amountInput.value.trim();
+        if (!phone) {
+            showToast('Введите номер получателя', 1500);
+            return;
+        }
+        const amountNum = parseFloat(amountRaw);
+        if (isNaN(amountNum) || amountNum <= 0) {
+            showToast('Введите корректную сумму', 1500);
+            return;
+        }
+        if (amountNum > realBalance) {
+            showToast('Недостаточно средств', 1500);
+            return;
+        }
+        // Выполняем перевод
+        addTransaction(-amountNum, `Перевод ${phone.slice(0,10)}...`, '📲');
+        showToast(`Перевод ${amountNum.toFixed(2)} ₽ выполнен`, 1800);
+        closeModal();
+    }
+
+    // Обработчики для быстрых действий
+    function onPayment() {
+        showToast('Демо-оплата: спишется 450 ₽', 1200);
+        setTimeout(() => {
+            if (realBalance >= 450) {
+                addTransaction(-450, 'Оплата услуг', '📱');
+                showToast('Оплата прошла успешно', 1500);
+            } else {
+                showToast('Недостаточно средств для демо-оплаты', 1500);
+            }
+        }, 400);
+    }
+
+    function onStatistics() {
+        showToast('📊 Статистика: расходы за месяц 6 200 ₽', 2000);
+    }
+
+    // События
+    toggleBtn.addEventListener('click', toggleBalanceVisibility);
+    transferBtn.addEventListener('click', openTransferModal);
+    paymentBtn.addEventListener('click', onPayment);
+    moreBtn.addEventListener('click', onStatistics);
+    cancelModalBtn.addEventListener('click', closeModal);
+    confirmTransferBtn.addEventListener('click', handleTransfer);
+    // Закрыть модалку по клику вне контента
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Инициализация
+    renderTransactions();
+    updateBalanceDisplay();
+
+    // Небольшие эффекты для нижнего меню (чисто визуально)
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            navItems.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+            showToast(`Раздел "${this.innerText.trim()}" в разработке`, 1200);
+        });
+    });
+</script>
+</body>
+</html>
