@@ -55,6 +55,19 @@
             padding-bottom: 80px;
             line-height: 1.4;
             -webkit-font-smoothing: antialiased;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Анимация появления всей страницы */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Шапка */
@@ -63,6 +76,18 @@
             color: white;
             padding: 20px 20px 24px;
             border-radius: 0 0 24px 24px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header-top {
@@ -76,6 +101,16 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .logo-icon {
@@ -101,12 +136,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
+            transition: all 0.3s;
             text-decoration: none;
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .notification-btn:hover {
             background: rgba(255,255,255,0.3);
+            transform: rotate(15deg);
         }
 
         .bell-icon {
@@ -128,12 +182,37 @@
             align-items: center;
             justify-content: center;
             border: 2px solid rgba(255,255,255,0.5);
+            animation: shake 2s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-2px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(2px);
+            }
         }
 
         .user-greeting {
             display: flex;
             align-items: center;
             gap: 14px;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .avatar {
@@ -148,6 +227,11 @@
             border: 2px solid rgba(255,255,255,0.4);
             text-decoration: none;
             color: white;
+            transition: all 0.3s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .greeting-text {
@@ -172,6 +256,24 @@
             padding: 24px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             margin-bottom: 24px;
+            animation: scaleIn 0.6s ease-out;
+            transition: all 0.3s;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .balance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .card-header {
@@ -239,6 +341,10 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
         .action-btn.outline {
             background: white;
             color: #667eea;
@@ -284,15 +390,184 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             text-decoration: none;
             transition: all 0.3s;
+            animation: staggerFadeIn 0.8s ease-out;
         }
 
+        @keyframes staggerFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .action-item:nth-child(1) { animation-delay: 0.1s; }
+        .action-item:nth-child(2) { animation-delay: 0.2s; }
+        .action-item:nth-child(3) { animation-delay: 0.3s; }
+        .action-item:nth-child(4) { animation-delay: 0.4s; }
+        .action-item:nth-child(5) { animation-delay: 0.5s; }
+        .action-item:nth-child(6) { animation-delay: 0.6s; }
+
         .action-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .action-item:active {
+            transform: scale(0.95);
         }
 
         .action-icon {
             font-size: 32px;
+            transition: transform 0.3s;
+        }
+
+        .action-item:hover .action-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Секция бесконтактной оплаты */
+        .contactless-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            color: white;
+            animation: slideInRight 0.8s ease-out;
+            transition: all 0.3s;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .contactless-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .contactless-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contactless-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .contactless-icon {
+            font-size: 40px;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(10deg);
+            }
+            75% {
+                transform: rotate(-10deg);
+            }
+        }
+
+        .nfc-animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .phone-icon {
+            font-size: 60px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .waves {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: ripple 2s ease-out infinite;
+        }
+
+        .waves:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .waves:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        .contactless-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(255,255,255,0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255,255,255,0.6);
+            }
+        }
+
+        .contactless-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .contactless-btn:active {
+            transform: scale(0.98);
         }
 
         /* История */
@@ -315,11 +590,12 @@
             font-size: 15px;
             cursor: pointer;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
 
         .link-btn:hover {
             color: #764ba2;
+            transform: translateX(5px);
         }
 
         .transaction {
@@ -335,11 +611,12 @@
             text-decoration: none;
             color: inherit;
             transition: all 0.3s;
+            animation: staggerFadeIn 0.8s ease-out;
         }
 
         .transaction:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .transaction-icon {
@@ -407,6 +684,18 @@
             border-top: 1px solid #e0e0e0;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
             z-index: 100;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
         }
 
         .nav-item {
@@ -429,6 +718,7 @@
         .nav-item:hover {
             background: #f0f0ff;
             color: #667eea;
+            transform: translateY(-5px);
         }
 
         .nav-item.active {
@@ -438,6 +728,11 @@
 
         .nav-icon {
             font-size: 22px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover .nav-icon {
+            transform: scale(1.2);
         }
 
         /* Модальное окно */
@@ -465,16 +760,16 @@
             max-width: 350px;
             width: 90%;
             text-align: center;
-            animation: slideUp 0.3s ease-out;
+            animation: modalSlideIn 0.3s ease-out;
         }
 
-        @keyframes slideUp {
+        @keyframes modalSlideIn {
             from {
-                transform: translateY(50px);
+                transform: translateY(50px) scale(0.9);
                 opacity: 0;
             }
             to {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
                 opacity: 1;
             }
         }
@@ -482,6 +777,7 @@
         .modal-icon {
             font-size: 50px;
             margin-bottom: 20px;
+            animation: bounceIn 0.6s ease-out;
         }
 
         .modal-title {
@@ -583,6 +879,29 @@
             </div>
         </section>
 
+        <!-- Бесконтактная оплата телефоном -->
+        <section class="contactless-section">
+            <div class="contactless-header">
+                <h2 class="contactless-title">Пей бесконтакт</h2>
+                <span class="contactless-icon">📱</span>
+            </div>
+            
+            <div class="nfc-animation">
+                <div class="waves"></div>
+                <div class="waves"></div>
+                <div class="waves"></div>
+                <div class="phone-icon">📱</div>
+            </div>
+            
+            <p style="text-align: center; margin-bottom: 20px; font-size: 14px; opacity: 0.9;">
+                Приложите телефон к терминалу для оплаты
+            </p>
+            
+            <a href="#" class="contactless-btn" onclick="showModal('contactless')">
+                Активировать NFC оплату
+            </a>
+        </section>
+
         <!-- Быстрые действия -->
         <section class="quick-actions">
             <h2 class="section-title">Быстрые действия</h2>
@@ -657,9 +976,9 @@
             <span class="nav-icon">🏠</span>
             <span>Главная</span>
         </a>
-        <a href="#" class="nav-item" onclick="showModal('cards')">
-            <span class="nav-icon">💳</span>
-            <span>Карты</span>
+        <a href="#" class="nav-item" onclick="showModal('contactless')">
+            <span class="nav-icon">📱</span>
+            <span>Пей бесконтакт</span>
         </a>
         <a href="#" class="nav-item" onclick="showModal('analytics')">
             <span class="nav-icon">📊</span>
@@ -684,6 +1003,11 @@
     <script>
         // Содержимое для разных кнопок
         const modalContent = {
+            'contactless': {
+                icon: '📱',
+                title: 'Бесконтактная оплата',
+                text: 'Оплачивайте покупки телефоном!\n\n📱 Поднесите телефон к терминалу\n💳 Спишется с карты Sperm latinum\n🔒 Безопасно и быстро\n\nПоддерживается:\nApple Pay | Google Pay | Samsung Pay'
+            },
             'notifications': {
                 icon: '🔔',
                 title: 'Уведомления',
@@ -762,44 +1086,4 @@
             'home': {
                 icon: '🏠',
                 title: 'Главная страница',
-                text: 'Вы уже на главной странице!\n\nЗдесь отображается:\n💳 Ваш баланс\n📊 Последние операции\n🎯 Быстрые действия'
-            },
-            'cards': {
-                icon: '💳',
-                title: 'Мои карты',
-                text: 'У вас 2 активные карты:\n\n💳 Sperm latinum: -1 200 ₽\n💳 Sperm gold: 15 000 ₽\n\n➕ Добавить новую карту'
-            },
-            'analytics': {
-                icon: '📊',
-                title: 'Аналитика расходов',
-                text: 'За текущий месяц:\n\n🍔 Еда: 5 200 ₽\n🚇 Транспорт: 1 800 ₽\n📱 Связь: 500 ₽\n🎮 Развлечения: 3 500 ₽'
-            }
-        };
-
-        // Функция показа модального окна
-        function showModal(type) {
-            const modal = document.getElementById('modal');
-            const content = modalContent[type];
-            
-            document.getElementById('modalIcon').textContent = content.icon;
-            document.getElementById('modalTitle').textContent = content.title;
-            document.getElementById('modalText').textContent = content.text;
-            
-            modal.classList.add('active');
-        }
-
-        // Функция закрытия модального окна
-        function closeModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.remove('active');
-        }
-
-        // Закрытие по клику вне окна
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-    </script>
-</body>
-</html>
+                text: 'Вы уже на главной странице!\n\nЗдесь отображается:\
