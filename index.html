@@ -17,7 +17,12 @@
     <!-- Настройка отображения как веб-приложения на iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="МобайлБанк">
+    <meta name="apple-mobile-web-app-title" content="SpermaBank">
+    
+    <title>SpermaBank</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
     <!-- Верхняя панель -->
     <header class="header">
         <div class="header-top">
@@ -48,10 +53,41 @@
                 <span class="card-type">Sperm latinum</span>
             </div>
             <div class="card-number">•••• 4832</div>
-            <div class="balance-amount">-1 200 ₽</div>
+            <div class="balance-amount negative">-1 200 ₽</div>
             <div class="card-actions">
                 <button class="action-btn">Пополнить</button>
                 <button class="action-btn outline">Перевести</button>
+            </div>
+        </section>
+
+        <!-- Быстрые действия -->
+        <section class="quick-actions">
+            <h2 class="section-title">Быстрые действия</h2>
+            <div class="actions-grid">
+                <button class="action-item">
+                    <span class="action-icon">📱</span>
+                    <span>Связь</span>
+                </button>
+                <button class="action-item">
+                    <span class="action-icon">💡</span>
+                    <span>ЖКХ</span>
+                </button>
+                <button class="action-item">
+                    <span class="action-icon">🛒</span>
+                    <span>Магазин</span>
+                </button>
+                <button class="action-item">
+                    <span class="action-icon">🎮</span>
+                    <span>Игры</span>
+                </button>
+                <button class="action-item">
+                    <span class="action-icon">🏥</span>
+                    <span>Здоровье</span>
+                </button>
+                <button class="action-item">
+                    <span class="action-icon">🎓</span>
+                    <span>Учеба</span>
+                </button>
             </div>
         </section>
 
@@ -86,6 +122,7 @@
                 <div class="transaction-amount expense">-500 ₽</div>
             </div>
         </section>
+    </main>
 
     <!-- Нижняя навигация -->
     <nav class="bottom-nav">
@@ -99,11 +136,11 @@
         </button>
         <button class="nav-item">
             <span class="nav-icon">📊</span>
-            <span>Анал</span>
+            <span>Аналитика</span>
         </button>
         <button class="nav-item">
             <span class="nav-icon">👤</span>
-            <span>Пидр</span>
+            <span>Профиль</span>
         </button>
     </nav>
 </body>
