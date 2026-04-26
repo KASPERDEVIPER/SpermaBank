@@ -102,6 +102,7 @@
             align-items: center;
             justify-content: center;
             transition: background 0.3s;
+            text-decoration: none;
         }
 
         .notification-btn:hover {
@@ -145,6 +146,8 @@
             justify-content: center;
             font-size: 26px;
             border: 2px solid rgba(255,255,255,0.4);
+            text-decoration: none;
+            color: white;
         }
 
         .greeting-text {
@@ -195,6 +198,12 @@
             color: #666;
             margin-bottom: 12px;
             letter-spacing: 2px;
+        }
+
+        .card-number-link {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
         }
 
         .balance-amount {
@@ -431,9 +440,79 @@
             font-size: 22px;
         }
 
-        /* Стили для кнопки уведомлений */
-        .notification-btn {
-            text-decoration: none;
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 350px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #202124;
+        }
+
+        .modal-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-close {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         /* Адаптивность для маленьких экранов */
@@ -468,15 +547,15 @@
                 <span class="logo-icon">🏦</span>
                 <span class="logo-text">SpermaBank</span>
             </div>
-            <!-- Кнопка уведомлений -->
-            <a href="notifications.html" target="_blank" class="notification-btn">
+            <!-- Кнопка уведомлений (открывает модальное окно) -->
+            <a href="#" class="notification-btn" onclick="showModal('notifications')">
                 <span class="bell-icon">🔔</span>
                 <span class="badge">3</span>
             </a>
         </div>
         <div class="user-greeting">
-            <!-- Аватар с ссылкой на профиль -->
-            <a href="profile.html" target="_blank" class="avatar" style="text-decoration: none; color: white;">👤</a>
+            <!-- Аватар (открывает модальное окно) -->
+            <a href="#" class="avatar" onclick="showModal('profile')">👤</a>
             <div>
                 <div class="greeting-text">Добрый день</div>
                 <div class="user-name">Арсений</div>
@@ -493,14 +572,14 @@
                 <span class="card-type">Sperm latinum</span>
             </div>
             <!-- Номер карты кликабельный -->
-            <a href="card-details.html" target="_blank" style="text-decoration: none; color: inherit;">
+            <a href="#" class="card-number-link" onclick="showModal('card')">
                 <div class="card-number">•••• 4832</div>
             </a>
             <div class="balance-amount">-1 200 ₽</div>
             <div class="card-actions">
-                <!-- Кнопки с ссылками -->
-                <a href="top-up.html" target="_blank" class="action-btn">Пополнить</a>
-                <a href="transfer.html" target="_blank" class="action-btn outline">Перевести</a>
+                <!-- Кнопки с модальными окнами -->
+                <a href="#" class="action-btn" onclick="showModal('topup')">Пополнить</a>
+                <a href="#" class="action-btn outline" onclick="showModal('transfer')">Перевести</a>
             </div>
         </section>
 
@@ -508,27 +587,27 @@
         <section class="quick-actions">
             <h2 class="section-title">Быстрые действия</h2>
             <div class="actions-grid">
-                <a href="mobile-topup.html" target="_blank" class="action-item">
+                <a href="#" class="action-item" onclick="showModal('mobile')">
                     <span class="action-icon">📱</span>
                     <span>Связь</span>
                 </a>
-                <a href="utilities.html" target="_blank" class="action-item">
+                <a href="#" class="action-item" onclick="showModal('utilities')">
                     <span class="action-icon">💡</span>
                     <span>ЖКХ</span>
                 </a>
-                <a href="shop.html" target="_blank" class="action-item">
+                <a href="#" class="action-item" onclick="showModal('shop')">
                     <span class="action-icon">🛒</span>
                     <span>Магазин</span>
                 </a>
-                <a href="games.html" target="_blank" class="action-item">
+                <a href="#" class="action-item" onclick="showModal('games')">
                     <span class="action-icon">🎮</span>
                     <span>Игры</span>
                 </a>
-                <a href="health.html" target="_blank" class="action-item">
+                <a href="#" class="action-item" onclick="showModal('health')">
                     <span class="action-icon">🏥</span>
                     <span>Здоровье</span>
                 </a>
-                <a href="education.html" target="_blank" class="action-item">
+                <a href="#" class="action-item" onclick="showModal('education')">
                     <span class="action-icon">🎓</span>
                     <span>Учеба</span>
                 </a>
@@ -539,11 +618,11 @@
         <section class="history">
             <div class="history-header">
                 <h2 class="section-title">Последние операции</h2>
-                <a href="history.html" target="_blank" class="link-btn">Все →</a>
+                <a href="#" class="link-btn" onclick="showModal('history')">Все →</a>
             </div>
             
             <!-- Каждая транзакция кликабельна -->
-            <a href="transaction-details.html?id=1" target="_blank" class="transaction">
+            <a href="#" class="transaction" onclick="showModal('transaction1')">
                 <div class="transaction-icon income">↓</div>
                 <div class="transaction-info">
                     <div class="transaction-name">Зарплата</div>
@@ -552,7 +631,7 @@
                 <div class="transaction-amount income">+450 ₽</div>
             </a>
             
-            <a href="transaction-details.html?id=2" target="_blank" class="transaction">
+            <a href="#" class="transaction" onclick="showModal('transaction2')">
                 <div class="transaction-icon expense">↑</div>
                 <div class="transaction-info">
                     <div class="transaction-name">Кофейня "Штурвал удовольствий"</div>
@@ -561,7 +640,7 @@
                 <div class="transaction-amount expense">-350 ₽</div>
             </a>
             
-            <a href="transaction-details.html?id=3" target="_blank" class="transaction">
+            <a href="#" class="transaction" onclick="showModal('transaction3')">
                 <div class="transaction-icon expense">↑</div>
                 <div class="transaction-info">
                     <div class="transaction-name">МТС пополнение</div>
@@ -574,22 +653,153 @@
 
     <!-- Нижняя навигация -->
     <nav class="bottom-nav">
-        <a href="index.html" target="_blank" class="nav-item active">
+        <a href="#" class="nav-item active" onclick="showModal('home')">
             <span class="nav-icon">🏠</span>
             <span>Главная</span>
         </a>
-        <a href="cards.html" target="_blank" class="nav-item">
+        <a href="#" class="nav-item" onclick="showModal('cards')">
             <span class="nav-icon">💳</span>
             <span>Карты</span>
         </a>
-        <a href="analytics.html" target="_blank" class="nav-item">
+        <a href="#" class="nav-item" onclick="showModal('analytics')">
             <span class="nav-icon">📊</span>
             <span>Аналитика</span>
         </a>
-        <a href="profile.html" target="_blank" class="nav-item">
+        <a href="#" class="nav-item" onclick="showModal('profile')">
             <span class="nav-icon">👤</span>
             <span>Профиль</span>
         </a>
     </nav>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modalIcon"></div>
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="modal-text" id="modalText"></div>
+            <button class="modal-close" onclick="closeModal()">Понятно</button>
+        </div>
+    </div>
+
+    <script>
+        // Содержимое для разных кнопок
+        const modalContent = {
+            'notifications': {
+                icon: '🔔',
+                title: 'Уведомления',
+                text: 'У вас 3 новых уведомления:\n\n📩 Новое предложение по кредиту\n💰 Кэшбэк 5% начислен\n🔒 Пароль скоро истечёт'
+            },
+            'profile': {
+                icon: '👤',
+                title: 'Профиль',
+                text: 'Арсений Петров\n📧 arseny@mail.ru\n📱 +7 (999) 123-45-67\n📍 Москва, ул. Примерная, 1'
+            },
+            'card': {
+                icon: '💳',
+                title: 'Карта Sperm latinum',
+                text: 'Номер: 4276 1234 5678 4832\nСрок: 12/28\nCVV: ***\nТип: Дебетовая'
+            },
+            'topup': {
+                icon: '💰',
+                title: 'Пополнение счета',
+                text: 'Выберите способ пополнения:\n\n🏦 С карты другого банка\n📱 С телефона\n💵 Наличными в терминале'
+            },
+            'transfer': {
+                icon: '💸',
+                title: 'Перевод средств',
+                text: 'Кому хотите перевести?\n\n👤 По номеру телефона\n💳 По номеру карты\n🏢 На счет организации'
+            },
+            'mobile': {
+                icon: '📱',
+                title: 'Пополнение телефона',
+                text: 'Введите номер телефона и сумму:\n\n+7 (___) ___-__-__\nСумма: от 50 до 5000 ₽'
+            },
+            'utilities': {
+                icon: '💡',
+                title: 'Оплата ЖКХ',
+                text: 'Выберите услугу:\n\n💡 Электричество\n💧 Водоснабжение\n🔥 Отопление\n🗑 Вывоз мусора'
+            },
+            'shop': {
+                icon: '🛒',
+                title: 'Онлайн магазин',
+                text: 'Добро пожаловать в магазин!\n\n🎁 Специальные предложения\n🏷 Скидки до 50%\n📦 Быстрая доставка'
+            },
+            'games': {
+                icon: '🎮',
+                title: 'Игры и развлечения',
+                text: 'Популярные игры:\n\n🎮 Steam пополнение\n📱 Google Play\n🎵 Музыкальные сервисы\n🎬 Кино и сериалы'
+            },
+            'health': {
+                icon: '🏥',
+                title: 'Здоровье',
+                text: 'Медицинские услуги:\n\n💊 Аптеки\n🏥 Больницы\n🦷 Стоматологии\n👁 Оптики'
+            },
+            'education': {
+                icon: '🎓',
+                title: 'Образование',
+                text: 'Оплата обучения:\n\n📚 ВУЗы и колледжи\n💻 Онлайн курсы\n📖 Учебные материалы\n👨‍🏫 Репетиторы'
+            },
+            'history': {
+                icon: '📊',
+                title: 'История операций',
+                text: 'Все операции за последний месяц:\n\n📥 Пополнения: 3\n📤 Списания: 12\n💳 Переводы: 5'
+            },
+            'transaction1': {
+                icon: '✅',
+                title: 'Детали операции',
+                text: '💰 Зарплата\nСумма: +450 ₽\nДата: Сегодня, 14:30\nОт: ООО "Рога и Копыта"\nСтатус: Выполнено'
+            },
+            'transaction2': {
+                icon: '☕',
+                title: 'Детали операции',
+                text: '🍰 Кофейня "Штурвал удовольствий"\nСумма: -350 ₽\nДата: Вчера, 09:15\nКатегория: Кафе и рестораны\nКэшбэк: 17.5 ₽'
+            },
+            'transaction3': {
+                icon: '📱',
+                title: 'Детали операции',
+                text: '📞 МТС пополнение\nСумма: -500 ₽\nДата: 15 апр, 18:42\nНомер: +7 (916) 123-45-67\nСтатус: Выполнено'
+            },
+            'home': {
+                icon: '🏠',
+                title: 'Главная страница',
+                text: 'Вы уже на главной странице!\n\nЗдесь отображается:\n💳 Ваш баланс\n📊 Последние операции\n🎯 Быстрые действия'
+            },
+            'cards': {
+                icon: '💳',
+                title: 'Мои карты',
+                text: 'У вас 2 активные карты:\n\n💳 Sperm latinum: -1 200 ₽\n💳 Sperm gold: 15 000 ₽\n\n➕ Добавить новую карту'
+            },
+            'analytics': {
+                icon: '📊',
+                title: 'Аналитика расходов',
+                text: 'За текущий месяц:\n\n🍔 Еда: 5 200 ₽\n🚇 Транспорт: 1 800 ₽\n📱 Связь: 500 ₽\n🎮 Развлечения: 3 500 ₽'
+            }
+        };
+
+        // Функция показа модального окна
+        function showModal(type) {
+            const modal = document.getElementById('modal');
+            const content = modalContent[type];
+            
+            document.getElementById('modalIcon').textContent = content.icon;
+            document.getElementById('modalTitle').textContent = content.title;
+            document.getElementById('modalText').textContent = content.text;
+            
+            modal.classList.add('active');
+        }
+
+        // Функция закрытия модального окна
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        // Закрытие по клику вне окна
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
