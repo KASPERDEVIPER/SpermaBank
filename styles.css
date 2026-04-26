@@ -1,4 +1,4 @@
-/* Базовые стили для мобильного банка */
+/* Базовые стили для мобильного банка SpermaBank */
 * {
     margin: 0;
     padding: 0;
@@ -35,7 +35,7 @@ body {
 
 /* Шапка */
 .header {
-    background: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 16px 20px 20px;
     border-radius: 0 0 20px 20px;
@@ -77,6 +77,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.2s;
+}
+
+.notification-btn:hover {
+    background: rgba(255,255,255,0.3);
 }
 
 .bell-icon {
@@ -97,6 +102,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid rgba(255,255,255,0.3);
 }
 
 .user-greeting {
@@ -114,6 +120,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 24px;
+    border: 2px solid rgba(255,255,255,0.3);
 }
 
 .greeting-text {
@@ -139,6 +146,12 @@ body {
     box-shadow: var(--shadow);
     margin-bottom: 24px;
     border: 1px solid var(--border);
+    transition: transform 0.2s;
+}
+
+.balance-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .card-header {
@@ -147,12 +160,13 @@ body {
     align-items: center;
     margin-bottom: 12px;
     font-size: 14px;
+    font-weight: 600;
 }
 
 .card-type {
     font-size: 12px;
-    background: #e8f0fe;
-    color: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     padding: 4px 10px;
     border-radius: 12px;
     font-weight: 500;
@@ -169,8 +183,12 @@ body {
 .balance-amount {
     font-size: 36px;
     font-weight: 700;
-    color: var(--danger);
+    color: var(--text);
     margin-bottom: 16px;
+}
+
+.balance-amount.negative {
+    color: var(--danger);
 }
 
 .card-actions {
@@ -186,23 +204,28 @@ body {
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    background: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    transition: background 0.2s;
+    transition: all 0.2s;
 }
 
 .action-btn:hover {
-    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.action-btn:active {
+    transform: scale(0.98);
 }
 
 .action-btn.outline {
     background: white;
-    color: var(--primary);
-    border: 2px solid var(--primary);
+    color: #667eea;
+    border: 2px solid #667eea;
 }
 
 .action-btn.outline:hover {
-    background: #f0f6ff;
+    background: #f0f0ff;
 }
 
 /* Секции */
@@ -211,6 +234,47 @@ body {
     font-weight: 700;
     margin-bottom: 16px;
     color: var(--text);
+}
+
+/* Сетка быстрых действий */
+.quick-actions {
+    margin-bottom: 24px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.action-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+}
+
+.action-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.action-item:active {
+    transform: scale(0.97);
+}
+
+.action-icon {
+    font-size: 28px;
 }
 
 /* История */
@@ -228,10 +292,15 @@ body {
 .link-btn {
     background: none;
     border: none;
-    color: var(--primary);
+    color: #667eea;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
+    transition: color 0.2s;
+}
+
+.link-btn:hover {
+    color: #764ba2;
 }
 
 .transaction {
@@ -243,6 +312,11 @@ body {
     border-radius: 12px;
     margin-bottom: 8px;
     box-shadow: var(--shadow);
+    transition: transform 0.2s;
+}
+
+.transaction:hover {
+    transform: translateX(4px);
 }
 
 .transaction-icon {
@@ -310,6 +384,7 @@ body {
     border-top: 1px solid var(--border);
     box-shadow: 0 -1px 8px rgba(0,0,0,0.05);
     z-index: 100;
+    backdrop-filter: blur(10px);
 }
 
 .nav-item {
@@ -328,8 +403,13 @@ body {
     font-weight: 500;
 }
 
+.nav-item:hover {
+    background: #f0f0ff;
+}
+
 .nav-item.active {
-    color: var(--primary);
+    color: #667eea;
+    background: #f0f0ff;
 }
 
 .nav-icon {
@@ -341,11 +421,38 @@ body {
     .balance-amount {
         font-size: 30px;
     }
+    
+    .actions-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .action-item {
+        padding: 14px 8px;
+    }
 }
 
 @media (min-width: 481px) {
     body {
         border-left: 1px solid var(--border);
         border-right: 1px solid var(--border);
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
+}
+
+/* Анимации */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.badge {
+    animation: pulse 2s infinite;
 }
