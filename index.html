@@ -20,7 +20,445 @@
     <meta name="apple-mobile-web-app-title" content="SpermaBank">
     
     <title>SpermaBank</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Базовые стили для мобильного банка SpermaBank */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --success: #0d904f;
+            --danger: #d93025;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #202124;
+            --text-secondary: #5f6368;
+            --border: #e0e0e0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f0f2f5;
+            color: var(--text);
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 80px;
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Шапка */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 20px 24px;
+            border-radius: 0 0 24px 24px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .notification-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 20px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .notification-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .bell-icon {
+            font-size: 24px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #ff4444;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .user-greeting {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .greeting-text {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .user-name {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        /* Основной контент */
+        .main-content {
+            padding: 20px;
+        }
+
+        /* Карта баланса */
+        .balance-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .card-type {
+            font-size: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .card-number {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .balance-amount {
+            font-size: 40px;
+            font-weight: 700;
+            color: #d93025;
+            margin-bottom: 20px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-btn.outline {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .action-btn.outline:hover {
+            background: #f0f0ff;
+        }
+
+        /* Секции */
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #202124;
+        }
+
+        /* Сетка быстрых действий */
+        .quick-actions {
+            margin-bottom: 24px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .action-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 20px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #202124;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .action-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .action-icon {
+            font-size: 32px;
+        }
+
+        /* История */
+        .history {
+            margin-bottom: 24px;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .link-btn {
+            background: none;
+            border: none;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .link-btn:hover {
+            color: #764ba2;
+        }
+
+        .transaction {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: white;
+            padding: 16px;
+            border-radius: 14px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .transaction:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .transaction-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .transaction-icon.income {
+            background: #e6f4ea;
+            color: #0d904f;
+        }
+
+        .transaction-icon.expense {
+            background: #fce8e6;
+            color: #d93025;
+        }
+
+        .transaction-info {
+            flex: 1;
+        }
+
+        .transaction-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .transaction-date {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .transaction-amount.income {
+            color: #0d904f;
+        }
+
+        .transaction-amount.expense {
+            color: #d93025;
+        }
+
+        /* Нижняя навигация */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0 14px;
+            border-top: 1px solid #e0e0e0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            background: #f0f0ff;
+            color: #667eea;
+        }
+
+        .nav-item.active {
+            color: #667eea;
+            background: #f0f0ff;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        /* Стили для кнопки уведомлений */
+        .notification-btn {
+            text-decoration: none;
+        }
+
+        /* Адаптивность для маленьких экранов */
+        @media (max-width: 380px) {
+            .balance-amount {
+                font-size: 32px;
+            }
+            
+            .actions-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            
+            .action-item {
+                padding: 14px 6px;
+            }
+        }
+
+        @media (min-width: 481px) {
+            body {
+                border-left: 1px solid #e0e0e0;
+                border-right: 1px solid #e0e0e0;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Верхняя панель -->
@@ -30,13 +468,15 @@
                 <span class="logo-icon">🏦</span>
                 <span class="logo-text">SpermaBank</span>
             </div>
-            <button class="notification-btn">
+            <!-- Кнопка уведомлений -->
+            <a href="notifications.html" target="_blank" class="notification-btn">
                 <span class="bell-icon">🔔</span>
                 <span class="badge">3</span>
-            </button>
+            </a>
         </div>
         <div class="user-greeting">
-            <div class="avatar">👤</div>
+            <!-- Аватар с ссылкой на профиль -->
+            <a href="profile.html" target="_blank" class="avatar" style="text-decoration: none; color: white;">👤</a>
             <div>
                 <div class="greeting-text">Добрый день</div>
                 <div class="user-name">Арсений</div>
@@ -52,11 +492,15 @@
                 <span>💳 СЧЕТ</span>
                 <span class="card-type">Sperm latinum</span>
             </div>
-            <div class="card-number">•••• 4832</div>
-            <div class="balance-amount negative">-1 200 ₽</div>
+            <!-- Номер карты кликабельный -->
+            <a href="card-details.html" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="card-number">•••• 4832</div>
+            </a>
+            <div class="balance-amount">-1 200 ₽</div>
             <div class="card-actions">
-                <button class="action-btn">Пополнить</button>
-                <button class="action-btn outline">Перевести</button>
+                <!-- Кнопки с ссылками -->
+                <a href="top-up.html" target="_blank" class="action-btn">Пополнить</a>
+                <a href="transfer.html" target="_blank" class="action-btn outline">Перевести</a>
             </div>
         </section>
 
@@ -64,30 +508,30 @@
         <section class="quick-actions">
             <h2 class="section-title">Быстрые действия</h2>
             <div class="actions-grid">
-                <button class="action-item">
+                <a href="mobile-topup.html" target="_blank" class="action-item">
                     <span class="action-icon">📱</span>
                     <span>Связь</span>
-                </button>
-                <button class="action-item">
+                </a>
+                <a href="utilities.html" target="_blank" class="action-item">
                     <span class="action-icon">💡</span>
                     <span>ЖКХ</span>
-                </button>
-                <button class="action-item">
+                </a>
+                <a href="shop.html" target="_blank" class="action-item">
                     <span class="action-icon">🛒</span>
                     <span>Магазин</span>
-                </button>
-                <button class="action-item">
+                </a>
+                <a href="games.html" target="_blank" class="action-item">
                     <span class="action-icon">🎮</span>
                     <span>Игры</span>
-                </button>
-                <button class="action-item">
+                </a>
+                <a href="health.html" target="_blank" class="action-item">
                     <span class="action-icon">🏥</span>
                     <span>Здоровье</span>
-                </button>
-                <button class="action-item">
+                </a>
+                <a href="education.html" target="_blank" class="action-item">
                     <span class="action-icon">🎓</span>
                     <span>Учеба</span>
-                </button>
+                </a>
             </div>
         </section>
 
@@ -95,53 +539,57 @@
         <section class="history">
             <div class="history-header">
                 <h2 class="section-title">Последние операции</h2>
-                <button class="link-btn">Все →</button>
+                <a href="history.html" target="_blank" class="link-btn">Все →</a>
             </div>
-            <div class="transaction">
+            
+            <!-- Каждая транзакция кликабельна -->
+            <a href="transaction-details.html?id=1" target="_blank" class="transaction">
                 <div class="transaction-icon income">↓</div>
                 <div class="transaction-info">
                     <div class="transaction-name">Зарплата</div>
                     <div class="transaction-date">Сегодня, 14:30</div>
                 </div>
                 <div class="transaction-amount income">+450 ₽</div>
-            </div>
-            <div class="transaction">
+            </a>
+            
+            <a href="transaction-details.html?id=2" target="_blank" class="transaction">
                 <div class="transaction-icon expense">↑</div>
                 <div class="transaction-info">
                     <div class="transaction-name">Кофейня "Штурвал удовольствий"</div>
                     <div class="transaction-date">Вчера, 09:15</div>
                 </div>
                 <div class="transaction-amount expense">-350 ₽</div>
-            </div>
-            <div class="transaction">
+            </a>
+            
+            <a href="transaction-details.html?id=3" target="_blank" class="transaction">
                 <div class="transaction-icon expense">↑</div>
                 <div class="transaction-info">
                     <div class="transaction-name">МТС пополнение</div>
                     <div class="transaction-date">15 апр, 18:42</div>
                 </div>
                 <div class="transaction-amount expense">-500 ₽</div>
-            </div>
+            </a>
         </section>
     </main>
 
     <!-- Нижняя навигация -->
     <nav class="bottom-nav">
-        <button class="nav-item active">
+        <a href="index.html" target="_blank" class="nav-item active">
             <span class="nav-icon">🏠</span>
             <span>Главная</span>
-        </button>
-        <button class="nav-item">
+        </a>
+        <a href="cards.html" target="_blank" class="nav-item">
             <span class="nav-icon">💳</span>
             <span>Карты</span>
-        </button>
-        <button class="nav-item">
+        </a>
+        <a href="analytics.html" target="_blank" class="nav-item">
             <span class="nav-icon">📊</span>
             <span>Аналитика</span>
-        </button>
-        <button class="nav-item">
+        </a>
+        <a href="profile.html" target="_blank" class="nav-item">
             <span class="nav-icon">👤</span>
             <span>Профиль</span>
-        </button>
+        </a>
     </nav>
 </body>
 </html>
