@@ -1,0 +1,450 @@
+/* Базовые стили для мобильного банка */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --success: #0d904f;
+    --danger: #d93025;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #202124;
+    --text-secondary: #5f6368;
+    --border: #e0e0e0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.1);
+    --radius: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 80px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Шапка */
+.header {
+    background: var(--primary);
+    color: white;
+    padding: 16px 20px 20px;
+    border-radius: 0 0 20px 20px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    font-size: 28px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.notification-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 20px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bell-icon {
+    font-size: 22px;
+}
+
+.badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: var(--danger);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-greeting {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.greeting-text {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.user-name {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Основной контент */
+.main-content {
+    padding: 20px;
+}
+
+/* Карта баланса */
+.balance-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.card-type {
+    font-size: 12px;
+    background: #e8f0fe;
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.card-number {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.balance-amount {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.balance-change {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.balance-change.positive {
+    color: var(--success);
+}
+
+.card-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--primary);
+    color: white;
+}
+
+.action-btn.outline {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+/* Секции */
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+/* Сетка действий */
+.quick-actions {
+    margin-bottom: 24px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.action-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transition: transform 0.1s;
+}
+
+.action-item:active {
+    transform: scale(0.97);
+}
+
+.action-icon {
+    font-size: 28px;
+}
+
+/* История */
+.history {
+    margin-bottom: 24px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.link-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.transaction {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card-bg);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow);
+}
+
+.transaction-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.transaction-icon.income {
+    background: #e6f4ea;
+    color: var(--success);
+}
+
+.transaction-icon.expense {
+    background: #fce8e6;
+    color: var(--danger);
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.transaction-date {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.transaction-amount {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.transaction-amount.income {
+    color: var(--success);
+}
+
+.transaction-amount.expense {
+    color: var(--danger);
+}
+
+/* Предложения */
+.offers {
+    margin-bottom: 24px;
+}
+
+.offer-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+    color: white;
+}
+
+.offer-card.savings {
+    background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+}
+
+.offer-content {
+    position: relative;
+}
+
+.offer-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.offer-content h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.offer-content p {
+    font-size: 14px;
+    margin-bottom: 14px;
+    opacity: 0.95;
+}
+
+.offer-btn {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Нижняя навигация */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: var(--card-bg);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 12px;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -1px 8px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.nav-item.active {
+    color: var(--primary);
+}
+
+.nav-icon {
+    font-size: 22px;
+}
+
+/* Адаптивность для разных мобильных */
+@media (max-width: 380px) {
+    .balance-amount {
+        font-size: 30px;
+    }
+    
+    .actions-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .action-item {
+        padding: 14px 8px;
+    }
+}
+
+@media (min-width: 481px) {
+    body {
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+    }
+}
